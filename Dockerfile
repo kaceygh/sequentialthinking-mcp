@@ -21,7 +21,7 @@ RUN npm install -g supergateway @modelcontextprotocol/server-sequential-thinking
 COPY . .
 
 # 暴露端口（dcdeploy 会注入 $PORT）
-EXPOSE $PORT
+EXPOSE 3000
 
 # 启动命令
 CMD ["npm", "start"]
