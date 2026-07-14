@@ -2,12 +2,12 @@
 const http = require('http');
 const { spawn } = require('child_process');
 
-const PORT = process.env.PORT || 8000;
-const SUPERGATEWAY_PORT = parseInt(PORT) + 1; // supergateway 使用下一个端口
+const HEALTH_PORT = 80; // dcdeploy 默认探测 80 端口
+const SUPERGATEWAY_PORT = 8000; // supergateway 使用 8000 端口
 
-// 1. 启动健康检查服务器（监听 $PORT）
+// 1. 启动健康检查服务器（监听 80 端口）
 const server = http.createServer((req, res) => {
-  if (req.url === '/health') {
+  if (req.url === '/health' || req.url === '/') {
     res.writeHead(200);
     res.end('OK');
   } else {
@@ -16,15 +16,15 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Health server running on port ${PORT}`);
+server.listen(HEALTH_PORT, '0.0.0.0', () => {
+  console.log(`Health server running on port ${HEALTH_PORT}`);
 });
 
-// 2. 启动 supergateway（监听 $PORT + 1）
+// 2. 启动 supergateway（监听 8000 端口）
 const supergateway = spawn('supergateway', [
   '--host', '0.0.0.0',
   '--stdio', 'npx -y @modelcontextprotocol/server-sequential-thinking',
-  '--port', SUPERGATEWAY_PORT, // 使用不同端口
+  '--port', SUPERGATEWAY_PORT,
   '--healthPath', '/health',
   '--ssePath', '/sse'
 ], { stdio: 'inherit' });
