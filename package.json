@@ -9,7 +9,6 @@
     "supergateway": "1.0.0"
   },
   "scripts": {
-    "start": "supergateway --host 0.0.0.0 --stdio "npx @modelcontextprotocol/server-sequential-thinking" --port ${PORT:-8000} --healthPath / --ssePath /sse
-"
+    "start": "supergateway --host 0.0.0.0 --stdio \"npx @modelcontextprotocol/server-sequential-thinking\" --port ${PORT:-8000} --healthPath / --ssePath /sse"
   }
 }
