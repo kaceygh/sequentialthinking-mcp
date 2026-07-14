@@ -9,6 +9,6 @@
     "supergateway": "1.0.0"
   },
   "scripts": {
-    "start": "sleep 40 && supergateway --stdio \"npx -y @modelcontextprotocol/server-sequential-thinking\" --port $PORT --healthPath /health --ssePath /sse"
+    "start": "sleep 10 && supergateway --host 0.0.0.0 --stdio \"npx -y @modelcontextprotocol/server-sequential-thinking\" --port $PORT --healthPath /health --ssePath /sse"
   }
 }
