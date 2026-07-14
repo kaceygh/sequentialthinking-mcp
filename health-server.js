@@ -7,13 +7,9 @@ const SUPERGATEWAY_PORT = 8000; // supergateway 使用 8000 端口
 
 // 1. 启动健康检查服务器（监听 80 端口）
 const server = http.createServer((req, res) => {
-  if (req.url === '/health' || req.url === '/') {
-    res.writeHead(200);
-    res.end('OK');
-  } else {
-    res.writeHead(404);
-    res.end('Not Found');
-  }
+  // 所有路径（包括 / 和 /health）都返回 200 OK
+  res.writeHead(200);
+  res.end('OK');
 });
 
 server.listen(HEALTH_PORT, '0.0.0.0', () => {
